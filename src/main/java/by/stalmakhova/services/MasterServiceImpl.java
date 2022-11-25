@@ -2,6 +2,7 @@ package by.stalmakhova.services;
 
 import by.stalmakhova.dto.MasterDto;
 import by.stalmakhova.entity.Master;
+import by.stalmakhova.entity.ProcedureTable;
 import by.stalmakhova.repositories.MasterRepository;
 import by.stalmakhova.services.Interfaces.MasterService;
 import org.modelmapper.ModelMapper;
@@ -30,6 +31,16 @@ public class MasterServiceImpl implements MasterService {
             mastersFromServer.add(masterFromServer);
         }
         return mastersFromServer;
+    }
+    @Override
+    public MasterDto CreateMaster(String nameMaster, ProcedureTable procedure)
+    {
+     var master = new Master();
+     master.setNameMaster(nameMaster);
+     master.setIdProcedure(procedure);
+      masterRepository.save(master);
+
+     return  modelMapper.map(master,MasterDto.class);
     }
    @Override
     public Master getMasterByName(String name) {

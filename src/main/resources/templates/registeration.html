@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <script  th:src="@{/js/register.js}" defer></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/form-page.css}"/>
+    <title>Registration</title>
+</head>
+
+<body>
+<div class="signup-form" >
+    <img class="jake" style="margin-top: -10px;" th:src="@{/css/HandJake.png}" alt=" ">
+    <form>
+        <h1>Sign up</h1>
+        <input placeholder="Name" type="text"  id="name">
+        <input placeholder="Email"  type="email"  id="email">
+        <input placeholder="Login"  type="text "  id="login">
+        <input placeholder="Password"  type="password" id="password">
+        <input type="button" value="OK" onclick="Send()"/>
+        <h2><a href="/login">Sign in</a></h2>
+    </form>
+    <img class="jake" th:src="@{/css/Jake.png}" alt=" ">
+</div>
+
+</body>
+
+</html>

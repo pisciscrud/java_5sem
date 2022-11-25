@@ -14,12 +14,12 @@ public class ProcedureToPet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private Integer id;
+    private Long id;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "pet_id", nullable = false)
-    private Pettype pet;
+    private PetType pet;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

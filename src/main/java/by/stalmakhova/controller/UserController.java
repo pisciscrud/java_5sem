@@ -65,9 +65,9 @@ public class UserController {
 
         userValidator.validate(user, bindingResult);
 
-        if (bindingResult.hasErrors())
+        if (bindingResult.hasErrors()) {
             return ResponseEntity.badRequest().build();
-
+        }
         userService.register(user);
 
         String token = jwtUtil.generateToken(user.getLogin());

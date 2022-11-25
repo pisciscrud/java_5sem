@@ -1,0 +1,56 @@
+.signup-form form {
+    text-align: center;
+    width: 290px;
+    height: 50%;
+    background-color: rgb(233, 197, 38);
+    padding: 20px;
+    border-radius: 20px;
+    border: black 2px solid;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+.signup-form button {
+    background-color: rgb(68, 68, 68);
+    color: rgb(255, 255, 255);
+    width: 200px;
+    height: 50px;
+    border-radius: 50px;
+    font-size: 22px;
+    border: none;
+    position: relative;
+    bottom: 0;
+}
+body {
+    font-family: Gumbo;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: LightPink;
+}
+
+@font-face {
+    font-family: "Gumbo";
+    src: url(Gumbo.otf)format("opentype");
+    font-style: normal;
+    font-weight: normal;
+}
+
+.signup-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.signup-form input {
+    background-color: rgb(255, 255, 255);
+    padding: 5px 0px 5px 20px;
+    margin: 7px 0;
+    border: rgb(0, 0, 0) 2px solid;
+    font-size: 20px;
+    width: 88%;
+    border-radius: 50px;
+    box-shadow: 2px 2px 2px rgb(180, 152, 23);
+}

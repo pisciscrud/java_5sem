@@ -1,12 +1,17 @@
 package by.stalmakhova.services.Interfaces;
 
+import by.stalmakhova.dto.ProcedureDto;
 import by.stalmakhova.dto.ProcedureFromServer;
 import by.stalmakhova.entity.ProcedureTable;
-
 
 import java.util.Collection;
 
 public interface ProcedureService {
-    ProcedureTable getProcedureByName(String name);
+   // ProcedureTable getProcedureByName(String name);
     Collection<ProcedureFromServer> getAllProcedures();
+     ProcedureTable getProcedureById(Long id);
+    ProcedureTable getProcedureTableByProcedureName(String procedureName);
+
+    ProcedureDto CreateProcedure(String name_procedure, double price, String photo);
+
 }

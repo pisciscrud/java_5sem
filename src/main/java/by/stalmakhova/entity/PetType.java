@@ -14,10 +14,10 @@ import javax.validation.constraints.Size;
 @Getter
 @Setter
 @Table(name = "pettype")
-public class Pettype {
+public class PetType {
     @Id
     @Column(name = "id", nullable = false)
-    private Integer id;
+    private Long id;
 
     @Size(max = 20)
     @NotNull

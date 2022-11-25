@@ -9,5 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MasterDto {
     private String nameMaster;
-    private ProcedureFromServer Procedure;
+    private String nameProcedure;
+    private double priceProcedure;
 }

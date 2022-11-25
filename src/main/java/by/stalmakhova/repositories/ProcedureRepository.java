@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ProcedureRepository  extends  CrudRepository<ProcedureTable, Long> {
-    ProcedureTable findProcedureByNameProcedure(String name);
+    ProcedureTable findProcedureTableByNameProcedure(String nameProcedure);
+    ProcedureTable findProcedureTableById(Long id);
 
 }

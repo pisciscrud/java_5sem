@@ -5,8 +5,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
-import java.time.LocalTime;
 
 @Entity
 @Getter
@@ -16,7 +14,7 @@ public class Schedule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private Integer id;
+    private Long id;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -40,11 +38,11 @@ public class Schedule {
 
     @NotNull
     @Column(name = "date_", nullable = false)
-    private LocalDate date;
+    private String date;
 
     @NotNull
     @Column(name = "time_", nullable = false)
-    private LocalTime time;
+    private String time;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

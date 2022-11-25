@@ -17,7 +17,7 @@ import javax.validation.constraints.Size;
 public class RoleTable {
     @Id
     @Column(name = "id", nullable = false)
-    private Integer id;
+    private Long id;
 
     @Size(max = 30)
     @NotNull

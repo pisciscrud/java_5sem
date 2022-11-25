@@ -1,7 +1,6 @@
 package by.stalmakhova.dto;
 
 
-import by.stalmakhova.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,9 +9,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PetDto {
-
+    private Long idOwner = null;
     private Integer age;
     private PetTypeDto pet;
-
+    private String nickname;
 
 }
