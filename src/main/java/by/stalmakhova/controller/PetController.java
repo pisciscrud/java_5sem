@@ -3,6 +3,7 @@ package by.stalmakhova.controller;
 import by.stalmakhova.dto.PetDto;
 import by.stalmakhova.dto.PetOut;
 import by.stalmakhova.dto.PetToAdd;
+import by.stalmakhova.repositories.UserRepository;
 import by.stalmakhova.services.Interfaces.PetService;
 import by.stalmakhova.services.Interfaces.PetTypeService;
 import by.stalmakhova.services.UserServiceImpl;
@@ -11,6 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -24,13 +29,15 @@ public class PetController {
     private final UserServiceImpl userService;
     private final ModelMapper modelMapper;
     private final PetTypeService petTypeService;
+    private final UserRepository userRepository;
 
     @Autowired
-    public PetController(PetService petService, ModelMapper modelMapper, UserServiceImpl userService, PetTypeService petTypeService) {
+    public PetController(PetService petService, ModelMapper modelMapper, UserServiceImpl userService, PetTypeService petTypeService,UserRepository userRepository) {
         this.petService = petService;
         this.modelMapper = modelMapper;
         this.userService = userService;
         this.petTypeService = petTypeService;
+        this.userRepository = userRepository;
     }
 
     @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -39,27 +46,35 @@ public class PetController {
         return new ResponseEntity<>(pets, HttpStatus.OK);
     }
 
-    @GetMapping(value = "{login}/PetForUser", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Collection<PetOut>> getUserPets(@PathVariable String login) {
+    @GetMapping(value = "/PetForUser", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Collection<PetOut>> getUserPets( Model model) {
 
-        Long id = userService.getUserIdByLogin(login);
+        final var currentUserDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+                .getPrincipal();
+        if (null == currentUserDetails)
+            throw new BadCredentialsException("Not authorized");
+        final var userId = this.userRepository.findByLogin(currentUserDetails.getUsername()).get().getId();
 
-        if (id == null)
+        if (userId == null)
             return ResponseEntity.badRequest().build();
 
-        var pets = petService.getAllPetsForCurrentUser(id);
-
+        var pets = petService.getAllPetsForCurrentUser(userId);
+        model.addAttribute("pets", pets);
         return new ResponseEntity<>(pets, HttpStatus.OK);
 
     }
 
-    @PostMapping(value = "/{login}/AddPet", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<PetOut> addPet(@RequestBody @Valid PetToAdd petToAdd, @PathVariable String login) {
+    @PostMapping(value = "/AddPet", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<PetOut> addPet(@RequestBody @Valid PetToAdd petToAdd) {
         {
-            Long userId = userService.getUserIdByLogin(login);
-            if (userId == null)
-                return ResponseEntity.badRequest().build();
-
+           // Long userId = userService.getUserIdByLogin(login);
+           // if (userId == null)
+             //   return ResponseEntity.badRequest().build();
+            final var currentUserDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+                    .getPrincipal();
+            if (null == currentUserDetails)
+                throw new BadCredentialsException("Not authorized");
+            final var userId = this.userRepository.findByLogin(currentUserDetails.getUsername()).get().getId();
             var petTypeId = petToAdd.getPet_type_id();
             var petType = petTypeService.findPetTypeById(Math.toIntExact(petTypeId));
 
@@ -69,9 +84,13 @@ public class PetController {
         }
     }
 
-    @DeleteMapping(value = "/{login}/DeletePet/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity deletePet(@PathVariable String login, @PathVariable Long id) {
-        Long userId = userService.getUserIdByLogin(login);
+    @DeleteMapping(value = "/DeletePet/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity deletePet( @PathVariable Long id) {
+        final var currentUserDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+                .getPrincipal();
+        if (null == currentUserDetails)
+            throw new BadCredentialsException("Not authorized");
+        final var userId = this.userRepository.findByLogin(currentUserDetails.getUsername()).get().getId();
         if (userId == null)
             return ResponseEntity.badRequest().build();
 

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script  th:src="@{/js/procedures.js}" defer></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/formpage.css}"/>
+    <title>Procedures</title>
+</head>
+<body onload="GetProcedures()">
+<div class="navbar">
+    <a href="/master">Masters</a>
+    <a href="/pet">Your pets</a>
+    <a href="/history">History</a>
+    <a href="/procedure">Procedures</a>
+    <a href="/login">Sing in</a>
+</div>
+<!--<div class="signup-form" >-->
+<!--&lt;!&ndash;<form >&ndash;&gt;-->
+<!--&lt;!&ndash;    <input placeholder="Name" type="text"  id="name">&ndash;&gt;-->
+<!--&lt;!&ndash;    <input placeholder="Price"  type="number"  id="price">&ndash;&gt;-->
+<!--&lt;!&ndash;    <input type="file"  name="file" id="file">&ndash;&gt;-->
+<!--&lt;!&ndash;    <input type="button" value="OK" onclick="AddProcedureAndPostPhoto()"/>&ndash;&gt;-->
+<!--&lt;!&ndash;    <span id="mesP"/>&ndash;&gt;-->
+<!--&lt;!&ndash;  </form>&ndash;&gt;-->
+<!--</div>-->
+<div id="procedures-list">
+</div>
+</body>
+</html>

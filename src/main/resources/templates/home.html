@@ -1,10 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script  th:src="@{/js/home.js}" defer></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/homepage.css}"/>
     <title>Home</title>
 </head>
 <body>
+<div class="navbar" style=" font-family: Gumbo;">
+    <a href="/master">Masters</a>
+    <a href="/pet">Your pets</a>
+    <a href="/history">History</a>
+    <a href="/procedure">Procedures</a>
+    <a href="/login">Sing in</a>
+</div>
+<div class="c">
 
+    <input type="radio" name="a" id="cr-1" checked>
+    <label for="cr-1" style="--hue: 32"></label>
+    <div class="ci" style="--z: 4">
+        <h2 class="ch" style="--h: 40; --s: 100%; --l: 89%">Procedures for everyone</h2>
+        <img src="https://faunistics.com/wp-content/uploads/2019/06/5-6.jpg" alt="">
+
+    </div>
+
+
+    <input type="radio" name="a" id="cr-2">
+    <label for="cr-2" style="--hue: 82"></label>
+    <div class="ci" style="--z: 3">
+        <h2 class="ch" style="--h: 82; --s: 80%; --l: 90%">The best procedures with love</h2>
+        <img th:src="@{/css/grooming.jpg}" >
+    </div>
+
+    <input type="radio" name="a" id="cr-3">
+    <label for="cr-3" style="--hue: 40"></label>
+    <div class="ci" style="--z: 2">
+        <h2 class="ch" style="--h: 32; --s: 80%; --l: 90%">What do you want for your pet?</h2>
+        <img src="https://canispro.ru/wp-content/uploads/b/b/0/bb01709aacf93c48ea550a6eae492324.jpg" >
+    </div>
+
+    <input type="radio" name="a" id="cr-4">
+    <label for="cr-4" style="--hue: 210"></label>
+    <div class="ci" style="--z: 1">
+        <h2 class="ch" style="--h: 210; --s: 70%; --l: 90%">Above looks beautiful?</h2>
+        <img src="https://2.bp.blogspot.com/-I2aKtLDmgfw/UQwwE5wG1vI/AAAAAAAAChE/wtszu7P3iPc/s1600/918_5764.JPG" >
+    </div>
+
+</div>
 </body>
 </html>

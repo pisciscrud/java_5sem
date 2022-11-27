@@ -11,7 +11,7 @@ public interface UserService {
 
     @Transactional
     void register(User User);
-
+    User getUserByLogin(String name);
     Long GetRoleId(String login);
 
     User getUserById(Long id);

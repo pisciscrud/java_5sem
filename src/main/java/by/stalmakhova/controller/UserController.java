@@ -7,8 +7,8 @@ import by.stalmakhova.exception.NonExistedUserException;
 import by.stalmakhova.security.JWTUtil;
 import by.stalmakhova.services.UserServiceImpl;
 import by.stalmakhova.validator.UserValidator;
-import org.modelmapper.ModelMapper;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -57,6 +57,12 @@ public class UserController {
         return ResponseEntity.ok(user);
 
     }
+//    @GetMapping("/current")
+//    public ResponseEntity<UserDto> getUser(){
+//       // User user = userService.getUserByLogin(getName());
+//        UserDto userDto = modelMapper.map(user, UserDto.class);
+//        return new ResponseEntity<>(userDto, HttpStatus.OK);
+//    }
 
     @PostMapping(value = "/registration", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserWithJwtToken> RegisterUser(@RequestBody @Valid RegistrateUser unauthorizedUser, BindingResult bindingResult) {

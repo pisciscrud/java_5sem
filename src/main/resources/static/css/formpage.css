@@ -1,3 +1,34 @@
+html{
+    overflow: hidden;
+margin-left: 0;
+    padding-left: 0;
+}
+
+.navbar {
+    overflow-x: hidden;
+    background-color: #333;
+    position: fixed;
+    top: 0;
+    font-family: Gumbo;
+    width: 100%;
+    margin: 0;
+}
+
+.navbar a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.navbar a:hover {
+    background: #ddd;
+    color: black;
+}
+
 .signup-form form {
     text-align: center;
     width: 290px;
@@ -21,11 +52,7 @@
 }
 body {
     font-family: Gumbo;
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+margin: 0;
     background-color: LightPink;
 }
 
@@ -37,11 +64,12 @@ body {
 }
 
 .signup-form {
-    display: flex;
-    justify-content: center;
+    float: right;
     align-items: center;
-    width: 100%;
-    height: 100%;
+    width: 40%;
+    height: 60%;
+padding-left: 5%;
+
 }
 
 .signup-form input {
@@ -53,4 +81,76 @@ body {
     width: 88%;
     border-radius: 50px;
     box-shadow: 2px 2px 2px rgb(180, 152, 23);
+}
+.signup-form select{
+    background-color: rgb(255, 255, 255);
+    padding: 5px 0px 5px 20px;
+    margin: 7px 0;
+    border: rgb(0, 0, 0) 2px solid;
+    font-size: 20px;
+    width: 88%;
+    border-radius: 50px;
+    box-shadow: 2px 2px 2px rgb(180, 152, 23);
+}
+
+.table {
+    width: 100%;
+    margin-bottom: 20px;
+    border: 5px solid #fff;
+    border-top: 5px solid #fff;
+    border-bottom: 3px solid #fff;
+    border-collapse: collapse;
+    outline: 3px solid #ffd300;
+    font-size: 15px;
+    background: #fff!important;
+}
+.table th {
+    font-weight: bold;
+    padding: 7px;
+    background: #ffd300;
+    border: none;
+    text-align: left;
+    font-size: 15px;
+    border-top: 3px solid #fff;
+    border-bottom: 3px solid #ffd300;
+}
+.table td {
+    padding: 7px;
+    border: none;
+    border-top: 3px solid #fff;
+    border-bottom: 3px solid #fff;
+    font-size: 15px;
+}
+.table tbody tr:nth-child(even){
+    background: #f8f8f8!important;
+}
+.signup-form{
+
+    float: left;
+
+}
+#divPets{
+    width: 100%;
+    height: 100%;
+    padding-top: 150px;
+    padding-left: 100px;
+    padding-right: 100px;
+    justify-content: center;
+    align-items: center;
+}
+#listP{
+    float: left;
+  width: 40%;
+
+
+
+}
+
+h2{
+    margin-left: 15%;
+}
+
+.hh{
+    margin-left: 30%;
+
 }
