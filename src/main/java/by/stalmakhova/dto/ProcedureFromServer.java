@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProcedureFromServer {
-    // private Long Id;
+     private Long Id;
     private double price;
     private String nameProcedure;
     private String Photo;

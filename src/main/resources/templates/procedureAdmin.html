@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/formpage.css}"/>
+    <title>Admin procedure</title>
+</head>
+<body>
+<div class="navbar" style=" font-family: Gumbo;">
+    <a href="/masterAdmin">Masters</a>
+    <a href="/admin">Masters</a>
+    <a href="/procedureAdmin">Procedures</a>
+    <a href="/login">Sing in</a>
+    <!--    <a href="/admin">Admin</a>-->
+</div>
+<div class="container">
+    <div id="ListProcedures" class="ListProcedures"></div>
+    <div class="signup-form" >
+    <form >
+        <input placeholder="Name" type="text"  id="name">
+        <input placeholder="Price"  type="number"  id="price">
+        <input type="file"  name="file" id="file">
+        <input type="button" value="OK" onclick="AddProcedureAndPostPhoto()"/>
+        <span id="mesP"/>
+      </form>
+    </div>
+</div>
+
+<script  th:src="@{/js/procedureAdmin.js}" defer></script>
+</body>
+</html>

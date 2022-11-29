@@ -2,12 +2,10 @@ function header(){return 'Bearer ' + localStorage.getItem("jwt");}
 window.addEventListener('DOMContentLoaded', e => {
     // paginationPage = getURLParameter(location.search, 'page') || 0
     // console.log('111 paginationPage', paginationPage)
-    GetProcedures()// root function
+  // root function
     GetMasters()
+    GetProcedures()
 })
-
-
-
 async function GetProcedures(){
     const options = {
         method: 'GET',
@@ -17,27 +15,26 @@ async function GetProcedures(){
             'Authorization': header()
         }
     }
-  const select =  document.getElementById("nameProcedure");
-      select.innerHTML="";
+    const select =  document.getElementById("nameProcedure");
+    select.innerHTML="";
     await fetch("/procedures",options)
         .then(res=>res.json())
         .then(res=> {
                 let str = 'Not Found';
-           if (!res.error)
-           {
-               res.forEach(obj=>{console.log(obj)
-               const option =document.createElement("option")
-                   option.innerHTML=obj.nameProcedure;
-                   option.value=obj.nameProcedure;
-                   select.append(option);
-               })
-           }
+                if (!res.error)
+                {
+                    res.forEach(obj=>{console.log(obj)
+                        const option =document.createElement("option")
+                        option.innerHTML=obj.nameProcedure;
+                        option.value=obj.id;
+                        select.append(option);
+                    })
+                }
             }
         )
 }
-
 async function GetMasters() {
-    document.getElementById("ListM").innerHTML = "";
+    document.getElementById("ListMasters").innerHTML = "";
     await fetch("/masters ",{
         method: 'GET',
         headers: {
@@ -84,45 +81,55 @@ async function GetMasters() {
                             '<td>' + obj.nameMaster + '</td>' +
                             '<td>' + obj.nameProcedure + '</td>' +
                             '<td>' + obj.priceProcedure + '</td>' +
+                            '<td><input type="button" value="X" onclick="deleteMaster(' + obj.id + ')"></input> </td>' +
+
                             '</tr>';
                     });
                     str += '</tbody></table>'
                 }
-                document.getElementById("ListM").innerHTML = str;
+                document.getElementById("ListMasters").innerHTML = str;
             }
         }
     });
 
 }
-async function AddNote(){
-    let nickname=document.getElementById("petNickname").value;
-    let procedureName = document.getElementById("nameProcedure").value;
-    let masterName = document.getElementById("nameMaster").value;
-    let date = document.getElementById("date").value;
-    let time = document.getElementById("time").value;
-
-    const options = {
+async function AddMaster(){
+    let nameMaster = document.getElementById("nameMaster").value;
+    let id_procedure=document.getElementById("nameProcedure").value;
+    const options={
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
             'Authorization': header()
         },
-        body: JSON.stringify({nickname,date,time,masterName,procedureName})
+        body: JSON.stringify({nameMaster,id_procedure})
+    };
+    const result = await fetch("/masters/add",options)
+    const res=await result.json();
+    if(!res.error){
+        GetMasters();
     }
-    await fetch("/schedule/Add",options)
-        .then(res=>res.json())
-        .then(res=> {
-                let str = 'Not Found';
-                if(res.status == 500){
-                    $('#mesP').text("Sorry in this time master is busy");
-                }
-
-                    else {
-                        if (!res.error) {
-                            $('#mesP').text("Added");
-                        }
-                    }
-                }
-        )
 }
+
+async function deleteMaster(id)
+{
+    let del = confirm("Delete?");
+    if (del == false)
+        return;
+    const options={
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': header()
+        }
+    };
+    const result = await fetch("/masters/delete/"+id,options)
+    const res=await result.json();
+    if(!res.error){
+        GetMasters();
+    }
+}
+
+

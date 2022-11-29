@@ -1,6 +1,5 @@
 html{
-    overflow: hidden;
-margin-left: 0;
+    margin-left: 0;
     padding-left: 0;
 }
 
@@ -53,7 +52,7 @@ margin-left: 0;
 body {
     font-family: Gumbo;
 margin: 0;
-    background-color: LightPink;
+    background-color: #19a3b3;
 }
 
 @font-face {
@@ -68,13 +67,13 @@ margin: 0;
     align-items: center;
     width: 40%;
     height: 60%;
-padding-left: 5%;
+    padding-left: 5%;
 
 }
 
 .signup-form input {
     background-color: rgb(255, 255, 255);
-    padding: 5px 0px 5px 20px;
+    padding: 5px 0 5px 20px;
     margin: 7px 0;
     border: rgb(0, 0, 0) 2px solid;
     font-size: 20px;
@@ -84,7 +83,7 @@ padding-left: 5%;
 }
 .signup-form select{
     background-color: rgb(255, 255, 255);
-    padding: 5px 0px 5px 20px;
+    padding: 5px 0 5px 20px;
     margin: 7px 0;
     border: rgb(0, 0, 0) 2px solid;
     font-size: 20px;
@@ -96,6 +95,7 @@ padding-left: 5%;
 .table {
     width: 100%;
     margin-bottom: 20px;
+    border-radius: 10px;
     border: 5px solid #fff;
     border-top: 5px solid #fff;
     border-bottom: 3px solid #fff;
@@ -107,12 +107,12 @@ padding-left: 5%;
 .table th {
     font-weight: bold;
     padding: 7px;
-    background: #ffd300;
+    /*background: #ffd300;*/
     border: none;
     text-align: left;
     font-size: 15px;
     border-top: 3px solid #fff;
-    border-bottom: 3px solid #ffd300;
+    /*border-bottom: 3px solid #ffd300;*/
 }
 .table td {
     padding: 7px;
@@ -153,4 +153,128 @@ h2{
 .hh{
     margin-left: 30%;
 
+}
+
+/* Base Styles For All Pages */
+.section {
+    padding-top: 80px;
+}
+
+.container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 40px;
+}
+
+/* pagination buttons */
+.table-pagination{
+    margin: 20px 30px;
+}
+.pagination-button{
+    margin: 0 5px;
+    border-radius: 20px;
+    padding: 10px 20px;
+    background-color: #ffd300;
+    border: none;
+}
+.sorted-table
+{
+    /*margin: 80px 30px;*/
+}
+.sorted-button{
+    margin: 0 5px;
+    border-radius: 20px;
+    padding: 10px 20px;
+    background-color: #ffd300;
+    border: none;
+}
+
+/* Procedures Styles */
+.procedures-list {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.procedure-card {
+    display: inline-block;
+    text-decoration: none;
+    color: inherit;
+    max-width: 230px;
+    width: 100%;
+    min-height: 300px;
+    border-radius: 20px;
+    padding: 15px;
+    margin: 10px;
+    background-color: #dbf2f4;
+}
+.procedure-card-img {
+    width: 100%;
+    height: 200px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+.container h3{
+    color: #0e343c;
+}
+
+
+/* History Page. Notes Styles */
+.history-list {
+
+}
+.note-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-decoration: none;
+    color: #0e343c;
+    max-width: 420px;
+    width: 100%;
+    min-height: 100px;
+    background-color: #dbf2f4;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 10px;
+    z-index: 2;
+   /* position: relative;*/
+}
+
+.note-card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.note-card-footer {
+    display: flex;
+    flex-direction: column;
+}
+
+.note-card-nameProcedure {
+    font-size: 22px;
+}
+.status-label {
+    padding: 7px 5px 5px;
+    border-radius: 5px;
+}
+.status-label.waiting {
+    background-color: #ffd300;
+}
+.status-label.denied {
+    background-color: red;
+}
+.status-label.approved {
+    background-color: greenyellow;
+}
+
+/* admin page */
+.note-card-admin{
+    z-index: 3;
+}
+
+.ListMasters{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    float:left;
 }

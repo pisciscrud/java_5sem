@@ -7,12 +7,12 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/formpage.css}"/>
     <title>Pets</title>
 </head>
-<body th:onload="PetsOfUser()">
+<body>
 <div class="navbar">
     <a href="/master">Masters</a>
     <a href="/pet">Your pets</a>
     <a href="/history">History</a>
-    <a href="/procedures">Procedures</a>
+    <a href="/procedure">Procedures</a>
     <a href="/login">Sing in</a>
 </div>
 
@@ -23,9 +23,10 @@
             <input placeholder="Nickname" type="text"  id="nickname">
             <input placeholder="Age"  type="number"  id="age">
             <select id="pet_type_id">
-                <option value="1">Cat</option>
-                <option value="2">Dog</option>
+                <option value="1">Dog</option>
+                <option value="2">Cat</option>
                 <option value="3">Pig</option>
+                <option value="4">Turtle</option>
             </select>
             <input type="button" value="OK" onclick="AddPet()"/>
             <span id="mesP"/>

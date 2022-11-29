@@ -21,7 +21,10 @@ public class MasterServiceImpl implements MasterService {
         this.modelMapper = modelMapper;
         this.masterRepository = masterRepository;
     }
-
+    @Override
+    public void deleteById(Long id) {
+        masterRepository.deleteById(id);
+    }
     @Override
     public Collection<MasterDto> getAllMasters() {
         var masters = masterRepository.findAll();

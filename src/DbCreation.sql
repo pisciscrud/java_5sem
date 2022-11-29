@@ -9,9 +9,9 @@ drop table Status;
 drop table pettype;
 drop table Master_to_Procedure;
 
-alter session set current_schema = SYSTEM;
+
 CREATE  TABLE Master (
-	id NUMBER(20)  GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1),
+	id NUMBER(20)  NOT NULL AUTO_INCREMENT,
 	name_master nvARCHAR2(20) NOT NULL,
 	surname_master nvarchar2(20) not null,
 	description nvarchar2(60) not null,
@@ -20,7 +20,7 @@ CREATE  TABLE Master (
 
 
 CREATE TABLE Procedure_table (
-id NUMBER(20) GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1),
+	id NUMBER(20)  NOT NULL AUTO_INCREMENT,
 	name_procedure VARCHAR(20) NOT NULL,
 	Price NUMBER(10,2) NOT NULL,
 	photo NVARCHAR2(100) NOT NULL,
@@ -30,7 +30,7 @@ id NUMBER(20) GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1),
 
 
 CREATE  TABLE User_table (
-	id NUMBER(20) GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1),
+		id NUMBER(20)  NOT NULL AUTO_INCREMENT,
 	full_name NVARCHAR2(30) NOT NULL,
 	email NVARCHAR2(30) NOT NULL,
 	login NVARCHAR2(64) NOT NULL,
@@ -50,7 +50,7 @@ Role_name NVARCHAR2(30) NOT NULL,
 
 
 CREATE  TABLE Pet (
-	id NUMBER(20)GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1),
+	id NUMBER(20)  NOT NULL AUTO_INCREMENT,
 	pet_type_id NUMBER(20) NOT NULL,
 	age NUMBER(20) NOT NULL,
 	id_owner NUMBER(20) NOT NULL,
@@ -61,7 +61,7 @@ CREATE  TABLE Pet (
 
 --Расписание сделать
 CREATE  TABLE Schedule (
-	id NUMBER(20) GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1),
+	id NUMBER(20)  NOT NULL AUTO_INCREMENT,
 	pet_id  NUMBER(20) NOT NULL,
 	master_id  NUMBER(20) NOT NULL,
 	procedure_id  NUMBER(20) NOT NULL,
@@ -84,15 +84,15 @@ CREATE  TABLE pettype(
 );
 
 
-create table Master_to_Procedure(
-    id number(20) GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1),
-    master_id number(20) not null,
-    procedure_id number(20) not null,
-    CONSTRAINT pk_Master_to_pet_id PRIMARY KEY (id)
-);
+--create table Master_to_Procedure(
+--    id number(20) GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1),
+--    master_id number(20) not null,
+--    procedure_id number(20) not null,
+--    CONSTRAINT pk_Master_to_pet_id PRIMARY KEY (id)
+--);
 
 CREATE  TABLE Procedure_to_pet (
-	id NUMBER(20) GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1),
+	id NUMBER(20)  NOT NULL AUTO_INCREMENT,
 	pet_id NUMBER(20) NOT NULL,
 	procedure_id NUMBER(20) NOT NULL,
 	CONSTRAINT pk_Procedure_to_pet_id PRIMARY KEY (id)
@@ -102,7 +102,7 @@ ALTER TABLE Pet ADD FOREIGN KEY (pet_type_id) REFERENCES pettype(id);
 
 ALTER TABLE Pet ADD FOREIGN KEY (id_owner) REFERENCES User_table(id);
 
-ALTER TABLE Schedule ADD FOREIGN KEY (pet_id) REFERENCES Pet(id);
+ALTER TABLE Pet ADD FOREIGN KEY (id) REFERENCES Schedule(pet_id);
 
 ALTER TABLE Schedule ADD FOREIGN KEY (Master_id) REFERENCES Master(id);
 
@@ -120,8 +120,3 @@ Alter table Master_to_Procedure add foreign  key(procedure_id) references PROCED
 
 Alter table Master_to_Procedure add foreign key(master_id) references MASTER(id);
 
-begin
-    ADD_USER('new1','rece','jji','uujuju');
-end;
-call ADD_USER('new','rece','jji','jji');
-call Authorization_user('jji','jji',);

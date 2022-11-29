@@ -14,7 +14,13 @@ async function LoginMe(e) {
         const data = await user.json();
         console.log(data);
         localStorage.setItem("jwt", data.token);
-        document.location.href = "/";
+        localStorage.setItem("role",data.role_id);
+        if (data.role_id == 1) {
+            document.location.href = "/admin";
+               }
+                else {
+                    document.location.href = "/";
+            }
     } catch (e) {
         alert(e);
     }

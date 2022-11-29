@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MasterDto {
+    private Long id;
     private String nameMaster;
     private String nameProcedure;
     private double priceProcedure;

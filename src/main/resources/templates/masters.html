@@ -11,10 +11,38 @@
     <a href="/master">Masters</a>
     <a href="/pet">Your pets</a>
     <a href="/history">History</a>
-    <a href="/procedures">Procedures</a>
+    <a href="/procedure">Procedures</a>
     <a href="/login">Sing in</a>
 </div>
-<div id="ListM">
+<h2>Masters</h2>>
+<div id="ListM" style="padding-top:150px;width:40%;float:left;padding-left:70px">
+</div>
+<div id="divPets" style="float:right; width:30%;">
+    <h2>Submit a request for the procedure</h2>
+    <div class="signup-form" >
+        <form>
+            <select  type="text"  id="nameMaster">
+            </select>
+            <input placeholder="Pet nickname"  type="text"  id="petNickname">
+            <select type="text" id="nameProcedure">
+            </select>
+            <select id="time" type="text">
+                <option value="8:00">8:00</option>
+                <option value="9:00">9:00</option>
+                <option value="10:00">10:00</option>
+                <option value="11:00">11:00</option>
+                <option value="13:00">13:00</option>
+                <option value="14:00">14:00</option>
+                <option value="16:00">16:00</option>
+                <option value="17:00">17:00</option>
+                <option value="18:00">18:00</option>
+                <option value="19:00">19:00</option>
+            </select>
+            <input type="date" id="date">
+            <input type="button" value="OK" onclick="AddNote()"/>
+            <span id="mesP"/>
+        </form>
+    </div>
 </div>
 </body>
 </html>

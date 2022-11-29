@@ -9,9 +9,12 @@ import java.util.Collection;
 public interface ProcedureService {
    // ProcedureTable getProcedureByName(String name);
     Collection<ProcedureFromServer> getAllProcedures();
+ Collection<ProcedureFromServer> getAllProceduresSorted( Long num);
      ProcedureTable getProcedureById(Long id);
     ProcedureTable getProcedureTableByProcedureName(String procedureName);
 
     ProcedureDto CreateProcedure(String name_procedure, double price, String photo);
 
+
+    void deleteProcedureById(Long id);
 }

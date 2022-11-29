@@ -3,12 +3,16 @@ package by.stalmakhova.controller;
 import by.stalmakhova.dto.MasterAdd;
 import by.stalmakhova.dto.MasterDto;
 import by.stalmakhova.entity.Master;
+import by.stalmakhova.repositories.UserRepository;
 import by.stalmakhova.services.Interfaces.MasterService;
 import by.stalmakhova.services.Interfaces.ProcedureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
@@ -20,10 +24,13 @@ import java.util.Collection;
 public class MasterController {
     private final MasterService masterService;
     private final ProcedureService procedureService;
+    private UserRepository userRepository;
+
     @Autowired
-    public MasterController(MasterService masterService,ProcedureService procedureService) {
+    public MasterController(MasterService masterService,ProcedureService procedureService,UserRepository userRepository) {
         this.masterService = masterService;
         this.procedureService=procedureService;
+        this.userRepository = userRepository;
     }
 
 
@@ -44,6 +51,20 @@ public class MasterController {
 
        return new ResponseEntity<>(master,HttpStatus.OK);
    }
+
+    @DeleteMapping(value = "/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity deletePet( @PathVariable Long id) {
+        final var currentUserDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+                .getPrincipal();
+        if (null == currentUserDetails)
+            throw new BadCredentialsException("Not authorized");
+        final var userId = this.userRepository.findByLogin(currentUserDetails.getUsername()).get().getId();
+        if (userId == null)
+            return ResponseEntity.badRequest().build();
+
+        masterService.deleteById(id);
+        return new ResponseEntity<>(true,HttpStatus.OK);
+    }
 
 
     @GetMapping(value = "/{name}",produces = MediaType.APPLICATION_JSON_VALUE)

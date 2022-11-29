@@ -67,9 +67,6 @@ public class PetController {
     @PostMapping(value = "/AddPet", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PetOut> addPet(@RequestBody @Valid PetToAdd petToAdd) {
         {
-           // Long userId = userService.getUserIdByLogin(login);
-           // if (userId == null)
-             //   return ResponseEntity.badRequest().build();
             final var currentUserDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
                     .getPrincipal();
             if (null == currentUserDetails)
@@ -95,7 +92,7 @@ public class PetController {
             return ResponseEntity.badRequest().build();
 
         petService.deleteById(id);
-        return ResponseEntity.ok().build();
+        return new ResponseEntity<>(true,HttpStatus.OK);
     }
 }
 

@@ -5,7 +5,9 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: LightPink;
+  
+    margin: 0;
+    background-color: #19a3b3;
 }
 
 @font-face {

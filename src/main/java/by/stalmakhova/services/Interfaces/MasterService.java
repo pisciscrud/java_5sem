@@ -11,4 +11,6 @@ public interface MasterService {
     Collection<MasterDto> getAllMasters();
 
     MasterDto CreateMaster(String nameMaster, ProcedureTable procedure);
+
+    void deleteById(Long id);
 }

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/formpage.css}"/>
+    <title>Admin master</title>
+</head>
+<body>
+<div class="navbar" style=" font-family: Gumbo;">
+    <a href="/masterAdmin">Masters</a>
+    <a href="/procedureAdmin">Procedures</a>
+    <a href="/login">Sing in</a>
+    <!--    <a href="/admin">Admin</a>-->
+</div>
+<div class="container">
+<div class="ListMasters" id="ListMasters">
+
+</div>
+    <div class="signup-form">
+        <form>
+            <input placeholder="Name Master" id="nameMaster"/>
+            <select type="number" id="nameProcedure"></select>
+            <input type="button" value="Add" onclick="AddMaster()"></input>
+        </form>
+        </div>
+</div>
+
+<script  th:src="@{/js/masterAdmin.js}" defer></script>
+</body>
+</html>

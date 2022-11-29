@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-    <script  th:src="@{/js/procedures.js}" defer></script>
     <link rel="stylesheet" type="text/css" th:href="@{/css/formpage.css}"/>
     <title>Procedures</title>
 </head>
-<body onload="GetProcedures()">
+<body>
 <div class="navbar">
     <a href="/master">Masters</a>
     <a href="/pet">Your pets</a>
@@ -23,7 +23,26 @@
 <!--&lt;!&ndash;    <span id="mesP"/>&ndash;&gt;-->
 <!--&lt;!&ndash;  </form>&ndash;&gt;-->
 <!--</div>-->
-<div id="procedures-list">
-</div>
+
+<section class="section procedures-section">
+    <div class="container">
+        <h1 class="page-title">Procedures</h1>
+        <div class="sorted-table">
+            <button class="sorted-button" onclick="SortAllProceduresByPrice(1)" style="font-family: Gumbo">Asc</button>
+            <button class="sorted-button" onclick="SortAllProceduresByPrice(2)" style="font-family: Gumbo">Desc</button>
+        </div>
+        <div id="procedures-list" class="procedures-list">
+        </div>
+    </div>
+    <div class="table-pagination">
+        <button class="pagination-button" style="font-family: Gumbo">Prev</button>
+        <button class="pagination-button" style="font-family: Gumbo">Next</button>
+    </div>
+</section>
+
+
+<script  th:src="@{/js/Components/ProcedureCard.js}" defer></script>
+<script  th:src="@{/js/procedures.js}" defer></script>
+
 </body>
 </html>

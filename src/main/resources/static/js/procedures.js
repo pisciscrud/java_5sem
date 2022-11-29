@@ -1,16 +1,52 @@
+let paginationPage = 0;
+let maxPaginationPage = 0;
+const cardsPerPage = 5;
+let cardsData = [];
+const root = document.getElementById("procedures-list");
+const [ prevPageBtn, nextPageBtn ] = document.querySelectorAll('.pagination-button')
+
+window.addEventListener('DOMContentLoaded', e => {
+    paginationPage = getURLParameter(location.search, 'page') || 0
+    //console.log('111 paginationPage', paginationPage)
+    // setPaginationAccess()
+    GetProcedures() // root function
+})
+
+
+async function SortAllProceduresByPrice(id)
+{
+    const options ={
+        method:'GET',
+        headers:{
+            // 'Content-Type': 'application/json',
+            // 'Accept': 'application/json',
+            'Authorization': header(),
+        }}
+    await fetch("/procedures/sort/"+id,options)
+        .then(res=>res.json())
+        .then(res => {
+            cardsData = res
+            maxPaginationPage = Math.ceil(cardsData.length / cardsPerPage) - 1
+            const cardsDataForPage = prepareCardsData(cardsData);
+            renderPage(cardsDataForPage)
+        });
+
+}
+
+function getURLParameter(url, param) {
+    const searchParams = new URLSearchParams(url);
+    return searchParams.get(param)
+}
+
 function header() {
     return 'Bearer ' + localStorage.getItem("jwt");
 }
 
- async function AddProcedureAndPostPhoto(){
-    await CopyFile();
-  await  AddProcedure();
- }
+
 
 
  async function GetProcedures()
  {
-     let root=document.getElementById("procedures-list");
      const options ={
          method:'GET',
          headers:{
@@ -18,76 +54,67 @@ function header() {
              // 'Accept': 'application/json',
              'Authorization': header(),
          }}
-     const data = await fetch("/procedures",options).then(res=>res.json()).then(
-         res=>
-         {
-             let html = 'Not Found';
-             if (!res.error)
-             {
-                  html = '<table style="width: 100%;\n' +
-                      '    margin-bottom: 20px;\n' +
-                      '    border: 5px solid #fff;\n' +
-                      '    border-top: 5px solid #fff;\n' +
-                      '    border-bottom: 3px solid #fff;\n' +
-                      '    border-collapse: collapse;\n' +
-                      '    outline: 3px solid #ffd300;\n' +
-                      '    font-size: 15px;\n' +
-                      '    background: #fff!important;">' +
-                      '    <thead>' +
-                      '    <tr>' +
-                      '        <th>Name</th>' +
-                      '        <th>Type</th>' +
-                      '        <th>Age</th>' +
-                      '    </tr>' +
-                      '    </thead>' +
-                      '    <tbody>';
-                  console.log('111 res: ', res)
-                  res.forEach(obj => {
-                      let imgSrc = `/images/${obj.photo}`
-                      html += '<tr>' +
-                          '<td>' + obj.nameProcedure+ '</td>' +
-                          '<td>' + obj.price + '</td>' +
-                          '<td><img src="' + imgSrc + '"/ style="width:50px"> </td>' +
-                          '</tr>';
-                  });
-                  html += '</tbody></table>'
-             }
+     await fetch("/procedures",options)
+         .then(res=>res.json())
+         .then(res => {
+             cardsData = res
+             maxPaginationPage = Math.ceil(cardsData.length / cardsPerPage) - 1
+             const cardsDataForPage = prepareCardsData(cardsData);
+             renderPage(cardsDataForPage)
+         });
+ }
 
-             root.innerHTML = html;
-         }
-     );
+ function prepareCardsData(data) {
+     const start = paginationPage * cardsPerPage
+     const end = start + cardsPerPage
+     return data.slice(start, end)
+ }
+
+ function renderPage(cardsData) {
+     let proceduresHtml = ''
+     if (!cardsData.error) {
+         console.log('111 data: ', cardsData)
+         cardsData.forEach(cardData => {
+             proceduresHtml += new ProcedureCard(cardData).render()
+         });
+     } else {
+         proceduresHtml = 'error...'
+     }
+     root.innerHTML = proceduresHtml;
  }
 
 
-async function CopyFile() {
-    let file = document.getElementById("file").files[0];
-    const formData = new FormData();
-    formData.append("file", file);
-    const options =
-        {
-            method: 'POST',
-            headers: {
-                'Authorization': header()
-            },
-            body: formData
-        };
-    const result = await fetch("/procedures/CopyFile",options);
+
+
+prevPageBtn.addEventListener('click', () => {
+    paginationPage -= 1;
+    if (paginationPage < 0) {
+        paginationPage = 0;
+    }
+    setPaginationAccess()
+    console.log('openPrevPage', paginationPage)
+    const cardsDataForPage = prepareCardsData(cardsData);
+    renderPage(cardsDataForPage)
+})
+
+nextPageBtn.addEventListener('click', () => {
+    paginationPage += 1;
+    if (paginationPage >= maxPaginationPage) {
+        paginationPage = maxPaginationPage
+    }
+    setPaginationAccess()
+    console.log('openNextPage', paginationPage)
+    const cardsDataForPage = prepareCardsData(cardsData);
+    renderPage(cardsDataForPage)
+})
+
+function setPaginationAccess() {
+    prevPageBtn.disabled = false;
+    nextPageBtn.disabled = false
+    if (paginationPage === maxPaginationPage) {
+        nextPageBtn.disabled = true
+    }
+    if (paginationPage === 0) {
+        prevPageBtn.disabled = true
+    }
 }
-
-async function AddProcedure() {
-    let nameProcedure = document.getElementById("name").value;
-    let price = document.getElementById("price").value;
-    let photo = document.getElementById("file").files[0].name;
-    const result = await fetch("/procedures/add", {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'Authorization': header()
-        },
-        body: JSON.stringify({price, nameProcedure,   photo})
-    });
-    const resul = await result.json();
-}
-
-

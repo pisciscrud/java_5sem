@@ -14,4 +14,5 @@ public class NoteHistory {
     private String masterName;
     private String procedureName;
     private String petNickname;
+    private Long id;
 }

@@ -1,32 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" th:href="@{/css/formpage.css}"/>
-    <Title>History</Title>
+    <title>Applications</title>
 </head>
 <body>
 <div class="navbar" style=" font-family: Gumbo;">
-    <a href="/master">Masters</a>
-    <a href="/pet">Your pets</a>
-    <a href="/history">History</a>
-    <a href="/procedure">Procedures</a>
+    <a href="/masterAdmin">Masters</a>
+    <a href="/procedureAdmin">Procedures</a>
     <a href="/login">Sing in</a>
+    <!--    <a href="/admin">Admin</a>-->
 </div>
-<section>
+<section class="section procedures-section">
     <div class="container">
-        <h3>History of your pets</h3>
-<div id="history-list" class="history-list">
-
-</div>
+        <h1 class="page-title">Applications</h1>
+        <div id="application-list" class="application-list">
+        </div>
     </div>
     <div class="table-pagination">
         <button class="pagination-button" style="font-family: Gumbo">Prev</button>
         <button class="pagination-button" style="font-family: Gumbo">Next</button>
     </div>
 </section>
-<script th:src="@{/js/Components/NoteCard.js}" defer></script>
-<script  th:src="@{/js/history.js}" defer></script>
+<script  th:src="@{/js/Components/NoteCard.js}" defer></script>
+<script  th:src="@{/js/admin.js}" defer></script>
 </body>
 </html>

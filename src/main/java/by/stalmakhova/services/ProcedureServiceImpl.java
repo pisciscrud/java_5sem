@@ -47,6 +47,29 @@ public class ProcedureServiceImpl  implements ProcedureService {
 
         return  procedureRepository.findAll();
     }
+  @Override
+    public void deleteProcedureById(Long id) {
+        procedureRepository.deleteById(id);
+    }
+    @Override
+    public Collection<ProcedureFromServer> getAllProceduresSorted(Long num) {
+        var proceduresFromServer = new ArrayList<ProcedureFromServer>();
+        if (num == 1) {
+            var procedures = procedureRepository.findByOrderByPriceAsc();
+            for (var procedure : procedures) {
+                var procedureFromServer = this.modelMapper.map(procedure, ProcedureFromServer.class);
+                proceduresFromServer.add(procedureFromServer);
+            }
+        } else {
+            var procedures = procedureRepository.findByOrderByPriceDesc();
+            for (var procedure : procedures) {
+                var procedureFromServer = this.modelMapper.map(procedure, ProcedureFromServer.class);
+                proceduresFromServer.add(procedureFromServer);
+            }
+        }
+        return proceduresFromServer;
+    }
+
     @Override
     public ProcedureTable getProcedureById(Long id){
    return  procedureRepository.findProcedureTableById(id);

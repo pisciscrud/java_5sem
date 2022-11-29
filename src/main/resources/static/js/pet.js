@@ -7,7 +7,11 @@ async function singOut(){
     document.location.href = "/login";
 }
 function header(){return 'Bearer ' + localStorage.getItem("jwt");}
-
+window.addEventListener('DOMContentLoaded', e => {
+    // paginationPage = getURLParameter(location.search, 'page') || 0
+    // console.log('111 paginationPage', paginationPage)
+    PetsOfUser()// root function
+})
 async function AddPet() {
     let nickname=document.getElementById("nickname").value;
     let age = document.getElementById("age").value;
@@ -30,7 +34,7 @@ async function AddPet() {
                     $('#mesP').text(res.error);
                 } else {
                     $('#mesP').text("Successful");
-
+                    PetsOfUser();
                 }
             }
         }
@@ -84,7 +88,9 @@ async function PetsOfUser() {
                     str += '</tbody></table>'
                 }
                 document.getElementById("listP").innerHTML = str;
+
             }
+
         }
         });
 
@@ -105,7 +111,7 @@ async function PetsOfUser() {
             }else {
                 if(res.status == 500){
                     $('#div').html(errorPage("Authorisation Error"));
-                } else if (res.status===200) {
+                } else {
                        PetsOfUser();
                     }
 

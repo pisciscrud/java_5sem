@@ -36,10 +36,18 @@ public class ProcedureController {
         var procedures = procedureService.getAllProcedures();
         return new ResponseEntity<>(procedures, HttpStatus.OK);
     }
-    @GetMapping(value = "/{name}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ProcedureTable> getProcedure(@PathVariable String name) {
+    @GetMapping(value="/sort/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
 
-        var procedure = procedureService.getProcedureTableByProcedureName(name);
+        public ResponseEntity<Collection<ProcedureFromServer>> sortAllProcedures(@PathVariable Long id){
+        var procedure = procedureService.getAllProceduresSorted(id);
+        return new ResponseEntity<>(procedure, HttpStatus.OK);
+
+    }
+
+    @GetMapping(value = ".html/id={id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ProcedureTable> getProcedure(@PathVariable Long id ) {
+
+        var procedure = procedureService.getProcedureById(id);
         return new ResponseEntity<>(procedure, HttpStatus.OK);
     }
     @PostMapping(value="/add",produces = MediaType.APPLICATION_JSON_VALUE)
@@ -64,6 +72,12 @@ public class ProcedureController {
         }
 
         return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping(value = "/delete/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity deleteProcedure(@PathVariable Long id) {
+      procedureService.deleteProcedureById(id);
+        return new ResponseEntity<>(true, HttpStatus.OK);
     }
 
 }
