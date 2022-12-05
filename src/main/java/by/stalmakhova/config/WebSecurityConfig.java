@@ -58,6 +58,7 @@ public class WebSecurityConfig {
                         authorizeRequests().
                        // anyRequest().permitAll().
                         antMatchers(HttpMethod.GET).permitAll().
+                        antMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html","/your-app-root/swagger-ui/**","/spring-security-rest/**",  "/swagger-resources/**", "/swagger-ui.html", "/v2/api-docs", "/webjars/**").permitAll().
                         and().
                         addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class).
                         authenticationManager(authenticationManager).

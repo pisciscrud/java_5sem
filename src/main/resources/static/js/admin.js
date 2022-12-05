@@ -186,7 +186,7 @@ prevPageBtn.addEventListener('click', () => {
     }
     setPaginationAccess()
     console.log('openPrevPage', paginationPage)
-    const cardsDataForPage = prepareCardsData(tableData);
+    const cardsDataForPage = prepareCardsData(cardsData);
     renderPage(cardsDataForPage)
 })
 
@@ -197,7 +197,7 @@ nextPageBtn.addEventListener('click', () => {
     }
     setPaginationAccess()
     console.log('openNextPage', paginationPage)
-    const cardsDataForPage = prepareCardsData(tableData);
+    const cardsDataForPage = prepareCardsData(cardsData);
     renderPage(cardsDataForPage)
 })
 

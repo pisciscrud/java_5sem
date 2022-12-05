@@ -38,10 +38,18 @@ public class ProcedureServiceImpl  implements ProcedureService {
 
     }
     @Override
-    public ProcedureTable getProcedureTableByProcedureName(String name) {
-        return   procedureRepository.findProcedureTableByNameProcedure(name);
+    public ProcedureFromServer getProcedureByProcedureName(String name) {
+          var procedures= procedureRepository.findProcedureTableByNameProcedure(name);
+           var procedureFromServer =this.modelMapper.map(procedures, ProcedureFromServer.class);
+            return procedureFromServer;
 
     }
+    @Override
+    public ProcedureTable getProcedureTableByProcedureName(String name)
+    {
+        return procedureRepository.findProcedureTableByNameProcedure(name);
+    }
+
 
     public Iterable<ProcedureTable> findAll() {
 

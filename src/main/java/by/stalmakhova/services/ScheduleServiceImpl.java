@@ -100,5 +100,9 @@ public class ScheduleServiceImpl implements ScheduleService {
         scheduleRepository.save(note);
         return modelMapper.map(note,ScheduleDto.class);
     }
+    @Override
+    public Schedule getScheduleById(Long id) {
+        return scheduleRepository.findById(id).orElse(null);
+    }
 
 }

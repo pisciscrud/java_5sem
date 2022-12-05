@@ -11,22 +11,23 @@ import java.util.Collections;
 public class UserDetailsImpl implements UserDetails {
 
     private final User user;
-     //private final RoleRepository roleRepository;
-   //private final
+
+    //private final RoleRepository roleRepository;
+    //private final
     public UserDetailsImpl(User user) {
-        this.user=user;
+        this.user = user;
     }
 
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        Long id_role= user.getIdRole();
-       String userRole;
-       if (id_role==1){
-           userRole="ADMIN";
-         }else {
-              userRole="USER";
-       }
+        Long id_role = user.getIdRole();
+        String userRole;
+        if (id_role == 1) {
+            userRole = "ROLE_ADMIN";
+        } else {
+            userRole = "ROLE_USER";
+        }
         return Collections.singletonList(new SimpleGrantedAuthority(userRole));
     }
 

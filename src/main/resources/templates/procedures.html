@@ -17,11 +17,11 @@
 <!--<div class="signup-form" >-->
 <!--&lt;!&ndash;<form >&ndash;&gt;-->
 <!--&lt;!&ndash;    <input placeholder="Name" type="text"  id="name">&ndash;&gt;-->
-<!--&lt;!&ndash;    <input placeholder="Price"  type="number"  id="price">&ndash;&gt;-->
-<!--&lt;!&ndash;    <input type="file"  name="file" id="file">&ndash;&gt;-->
-<!--&lt;!&ndash;    <input type="button" value="OK" onclick="AddProcedureAndPostPhoto()"/>&ndash;&gt;-->
-<!--&lt;!&ndash;    <span id="mesP"/>&ndash;&gt;-->
-<!--&lt;!&ndash;  </form>&ndash;&gt;-->
+<!--    <input placeholder="Price"  type="number"  id="price">-->
+<!--    <input type="file"  name="file" id="file">-->
+<!--    <input type="button" value="OK" onclick="AddProcedureAndPostPhoto()"/>-->
+<!--    <span id="mesP"/>-->
+<!--  </form>-->
 <!--</div>-->
 
 <section class="section procedures-section">
@@ -30,7 +30,12 @@
         <div class="sorted-table">
             <button class="sorted-button" onclick="SortAllProceduresByPrice(1)" style="font-family: Gumbo">Asc</button>
             <button class="sorted-button" onclick="SortAllProceduresByPrice(2)" style="font-family: Gumbo">Desc</button>
+            <div class="search-table">
+                <input placeholder="Search" class="search-input" id="search"></input>
+                <input type="button" value="ok" onclick="SeachProceduresByName()"/>
+            </div>
         </div>
+
         <div id="procedures-list" class="procedures-list">
         </div>
     </div>

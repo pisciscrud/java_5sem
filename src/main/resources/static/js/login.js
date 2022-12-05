@@ -13,14 +13,20 @@ async function LoginMe(e) {
         });
         const data = await user.json();
         console.log(data);
+        if(data==null){
+            $('#error').text("Sorry uncorrect login or password");
+        }
         localStorage.setItem("jwt", data.token);
         localStorage.setItem("role",data.role_id);
         if (data.role_id == 1) {
             document.location.href = "/admin";
                }
-                else {
+                else if (data.role_id == 2) {
                     document.location.href = "/";
             }
+                else {
+            $('#error').text("Sorry uncorrect login or password");
+        }
     } catch (e) {
         alert(e);
     }

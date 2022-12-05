@@ -5,6 +5,7 @@ import by.stalmakhova.entity.Schedule;
 import by.stalmakhova.exception.RecordAlreadyExist;
 import by.stalmakhova.repositories.ScheduleRepository;
 import by.stalmakhova.repositories.UserRepository;
+import by.stalmakhova.services.EmailServiceImpl;
 import by.stalmakhova.services.Interfaces.*;
 import by.stalmakhova.services.PetServiceImpl;
 import by.stalmakhova.services.UserServiceImpl;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,6 +26,7 @@ import java.util.Collection;
 @RestController
 @RequestMapping("/schedule")
 @CrossOrigin("*")
+@ControllerAdvice
 public class ScheduleController {
     private final ScheduleService scheduleService;
     private final ScheduleRepository scheduleRepository;
@@ -34,6 +37,7 @@ public class ScheduleController {
     private final PetService petService;
     private final MasterService masterService;
     private UserRepository userRepository;
+    private EmailServiceImpl emailService;
 
     private boolean AreSameNotes(Schedule note,Schedule schedule){
         return note.getMaster().getNameMaster().equals(schedule.getMaster().getNameMaster())
@@ -42,7 +46,10 @@ public class ScheduleController {
     }
 
     @Autowired
-    public ScheduleController(ScheduleService scheduleService, ScheduleRepository scheduleRepository, StatusService statusService, ProcedureService procedureService, UserServiceImpl userService, ModelMapper modelMapper, PetServiceImpl petService, MasterService masterService,UserRepository userRepository) {
+    public ScheduleController(ScheduleService scheduleService,
+                              ScheduleRepository scheduleRepository, StatusService statusService,
+                              ProcedureService procedureService, UserServiceImpl userService, ModelMapper modelMapper,
+                              PetServiceImpl petService, MasterService masterService,UserRepository userRepository, EmailServiceImpl emailService) {
         this.scheduleService = scheduleService;
         this.scheduleRepository = scheduleRepository;
         this.statusService = statusService;
@@ -52,6 +59,7 @@ public class ScheduleController {
         this.petService = petService;
         this.masterService = masterService;
         this.userRepository=userRepository;
+        this.emailService=emailService;
     }
    @GetMapping(value="History",produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Collection<ScheduleDto>> getAllSchedule() {
@@ -73,15 +81,34 @@ public class ScheduleController {
         return new ResponseEntity<>(notesForUser,HttpStatus.OK);
 
     }
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping (value="/applications",produces=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Collection<ScheduleDto>> getApplications(){
         var notes = scheduleService.getAllAplicationsWhatWaiting();
         return new ResponseEntity<>(notes,HttpStatus.OK);
     }
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping(value="/set-status/{id}",produces=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ScheduleDto> setStatus(@PathVariable Long id,@RequestBody StatusDto statusDto){
+//        final var currentUserDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+//                .getPrincipal();
+//        if (null == currentUserDetails)
+//            throw new BadCredentialsException("Not authorized");
+//        final var userId = this.userRepository.findByLogin(currentUserDetails.getUsername()).get().getId();
+//
+//        if (userId == null)
+//            return ResponseEntity.badRequest().build();
+
         Long status_id = statusDto.getStatus_id();
         var note = scheduleService.setNoteStatus(id,status_id);
+        var not= scheduleService.getScheduleById(id);
+        var user=not.getOwner();
+        String subject = "Запись на процедуру";
+        String text = "Запись на процедуру "+note.getProcedureName()+" в "+note.getTime()+" "+note.getDate()+" была "+note.getStatusName();
+
+        new Thread(() -> {
+            emailService.sendEmailToUser(subject,text,user);
+        }).start();
         return new ResponseEntity<>(note,HttpStatus.OK);
     }
 @GetMapping (value="",produces=MediaType.APPLICATION_JSON_VALUE)
@@ -123,6 +150,7 @@ public class ScheduleController {
             scheduleRepository.findAll().forEach(noteFromServer -> {
                 if (AreSameNotes(noteFromServer, note)) {
                 throw new RecordAlreadyExist("This note is already exist");
+
                 }
             });
             scheduleRepository.save(note);

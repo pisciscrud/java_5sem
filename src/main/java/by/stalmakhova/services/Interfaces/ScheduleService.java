@@ -8,6 +8,7 @@ import java.util.Collection;
 
 public interface ScheduleService {
     Collection<ScheduleDto> getAllSchedule();
+    Schedule getScheduleById(Long id);
     Schedule CreateNote (Long idUser, String date, String time, Pet pet, Master masterId, ProcedureTable procedureId, Status StatusId);
     Schedule SaveNote (Schedule schedule);
     Collection<NoteHistory> getAllNotesForCurrentUser(Long id);

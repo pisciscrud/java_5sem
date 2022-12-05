@@ -111,10 +111,12 @@ async function AddNote(){
         body: JSON.stringify({nickname,date,time,masterName,procedureName})
     }
     await fetch("/schedule/Add",options)
-        .then(res=>res.json())
+        .then(
+            res=>res.json())
         .then(res=> {
+            console.log(res);
                 let str = 'Not Found';
-                if(res.status == 500){
+                if(res.error){
                     $('#mesP').text("Sorry in this time master is busy");
                 }
 

@@ -32,7 +32,7 @@ public class Schedule {
     private ProcedureTable procedure;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne( optional = false)
     @JoinColumn(name = "owner_id", nullable = false)
     private User owner;
 

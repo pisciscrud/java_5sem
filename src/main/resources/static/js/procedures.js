@@ -1,6 +1,6 @@
 let paginationPage = 0;
 let maxPaginationPage = 0;
-const cardsPerPage = 5;
+const cardsPerPage = 4;
 let cardsData = [];
 const root = document.getElementById("procedures-list");
 const [ prevPageBtn, nextPageBtn ] = document.querySelectorAll('.pagination-button')
@@ -31,6 +31,25 @@ async function SortAllProceduresByPrice(id)
             renderPage(cardsDataForPage)
         });
 
+}
+async function SeachProceduresByName(){
+    let name = document.getElementById("search").value;
+    const options ={
+        method:'GET',
+        headers:{
+            // 'Content-Type': 'application/json',
+            // 'Accept': 'application/json',
+            'Authorization': header(),
+        }}
+    await fetch("/procedures/search/"+name,options)
+        .then(res=>res.json())
+        .then(res => {
+            console.log(res);
+            cardsData = res
+            maxPaginationPage = Math.ceil(cardsData.length / cardsPerPage) - 1
+            const cardsDataForPage = cardsData;
+            RenderOnject(cardsDataForPage)
+        });
 }
 
 function getURLParameter(url, param) {
@@ -70,13 +89,30 @@ function header() {
      return data.slice(start, end)
  }
 
+ function RenderOnject(cardsData){
+    let proceduresHtml = ''
+        if (!cardsData.error) {
+
+            console.log('111 data: ', cardsData)
+                proceduresHtml += new ProcedureCard(cardsData).render()
+            }
+
+
+else {
+            proceduresHtml = 'Not Found...'
+        }
+        root.innerHTML = proceduresHtml;
+ }
  function renderPage(cardsData) {
      let proceduresHtml = ''
      if (!cardsData.error) {
-         console.log('111 data: ', cardsData)
-         cardsData.forEach(cardData => {
-             proceduresHtml += new ProcedureCard(cardData).render()
-         });
+
+             console.log('111 data: ', cardsData)
+             cardsData.forEach(cardData => {
+                 proceduresHtml += new ProcedureCard(cardData).render()
+             });
+
+
      } else {
          proceduresHtml = 'error...'
      }

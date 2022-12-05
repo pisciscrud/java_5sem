@@ -81,6 +81,28 @@ margin: 0;
     border-radius: 50px;
     box-shadow: 2px 2px 2px rgb(180, 152, 23);
 }
+.search-table
+{
+     float: right;
+    padding: 2px;
+    border-radius: 20px;
+    border: black 2px solid;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    width:15%;
+}
+
+
+.search-input
+{
+    background-color: rgb(255, 255, 255);
+    padding: 5px 0 5px 20px;
+    margin: 7px 0;
+    border: rgb(0, 0, 0) 2px solid;
+    font-size: 20px;
+    width: 50%;
+    border-radius: 50px;
+    box-shadow: 2px 2px 2px rgb(180, 152, 23);
+}
 .signup-form select{
     background-color: rgb(255, 255, 255);
     padding: 5px 0 5px 20px;

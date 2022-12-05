@@ -8,7 +8,8 @@ import java.util.Collection;
 
 @Repository
 public interface ProcedureRepository  extends JpaRepository<ProcedureTable, Long> {
-    ProcedureTable findProcedureTableByNameProcedure(String nameProcedure);
+
+   ProcedureTable findProcedureTableByNameProcedure(String nameProcedure);
     ProcedureTable findProcedureTableById(Long id);
 
     Collection<ProcedureTable> findByOrderByPriceAsc();

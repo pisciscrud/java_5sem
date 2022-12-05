@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -34,13 +35,14 @@ public class MasterController {
     }
 
 
-
+      @PreAuthorize("hasAnyRole('ADMIN_ROLE','USER_ROLE')")
     @GetMapping(value="",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Collection<MasterDto>> getAllMasters() {
         var masters = masterService.getAllMasters();
         return new ResponseEntity<>(masters, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ADMIN_ROLE')")
    @PostMapping(value="/add",produces = MediaType.APPLICATION_JSON_VALUE)
    public ResponseEntity<MasterDto> addMaster(@RequestBody MasterAdd masterAdd)
    {
@@ -51,7 +53,7 @@ public class MasterController {
 
        return new ResponseEntity<>(master,HttpStatus.OK);
    }
-
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping(value = "/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity deletePet( @PathVariable Long id) {
         final var currentUserDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()

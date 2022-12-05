@@ -1,12 +1,12 @@
 package by.stalmakhova.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 public class ScheduleDto {
     private Long id;
     private String date;
